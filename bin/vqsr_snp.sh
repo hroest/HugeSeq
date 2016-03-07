@@ -49,7 +49,7 @@ fi
 
 if [ "$doVQSR" != "True" ]
 then
-        command="cp $SNP_VCF $SNP_RECAL_VCF"
+        command="cp $START_VCF $SNP_RECAL_VCF"
         echo ">>> Do not perform SNP VQSR"
         echo ">>> Do not perform SNP VQSR" >> $LOGFILE
         $command &> $PREFIX/$SAMPLE.vqsr.snp.log
