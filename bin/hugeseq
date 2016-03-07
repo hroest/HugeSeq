@@ -298,9 +298,10 @@ def __callvars(jobs, idprefix, output, inputs, pjobs, variants):
      		
                         # Combine after VQSR
 		       	if args.reference_calls:
-				job3.append('combine_vcf.sh %s %s %s %s %s %s'%(output+".snv.vcf", False, False, False, output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
+                                # Combine SNP and indel
+				job3.append('combine_vcf.sh %s %s %s %s %s %s'%(output+".snv.vcf", False, False, True, output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
 				job3.append('write_refcalls.sh %s'%(job1.output))
-				job3.append('combine_vcf.sh %s %s %s %s %s %s %s'%(output+".snv.refcalls.vcf", False, True, False, output+"refcalls.vcf", output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
+				job3.append('combine_vcf.sh %s %s %s %s %s %s %s'%(output+".snv.refcalls.vcf", False, True, True, output+"refcalls.vcf", output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
      		        else:
 				job3.append('combine_vcf.sh %s %s %s %s %s %s'%(output+".snv.vcf", False, False, False, output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
        	        	job3.depend(job2)
@@ -371,7 +372,7 @@ def merge_annotate(siJobs, svJobs, variants):
                         # First merge
                         if (not args.vqsrchrom):
 				if args.nobinning:
-                                	job1.append('combine_vcf.sh %s %s %s %s %s'%(File(outdir.path, sample+".gatk.vcf"), True, False, False, " ".join(siCombinedVCFs[i])))
+                                	job1.append('combine_vcf.sh %s %s %s %s %s'%(File(outdir.path, sample+".gatk.vcf"), True, False, args.reference_calls, " ".join(siCombinedVCFs[i])))
                                 else:
 					job1.append('combine_vcf.sh %s %s %s %s %s'%(File(outdir.path, sample+".gatk.vcf"), False, False, args.reference_calls, " ".join(siCombinedVCFs[i])))
                         else:
