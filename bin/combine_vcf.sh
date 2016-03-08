@@ -25,7 +25,7 @@ do
        	inputs="$inputs --variant `cd \`dirname $i\`; pwd`/`basename $i`"
 done
 
-#  CombineVariants should not be used to merge gVCFs produced by the HaplotypeCaller; use CombineGVCFs instead
+# CombineVariants should not be used to merge gVCFs produced by the HaplotypeCaller; use CombineGVCFs instead
 TOOL="CombineVariants"
 if [[ "$gvcf" == "True" ]]
 then
