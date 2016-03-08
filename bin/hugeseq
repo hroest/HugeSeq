@@ -296,9 +296,8 @@ def __callvars(jobs, idprefix, output, inputs, pjobs, variants):
 			job3.sge_options="-l h_rt=120:00:00 -A %s"%args.account
 	       		job3.output=File(output+".snv.vcf")
      		
-                        # Combine after VQSR
+                        # Combine after VQSR per chromosome
 		       	if args.reference_calls:
-                                # Combine SNP and indel
 				job3.append('combine_vcf.sh %s %s %s %s %s %s'%(output+".snv.vcf", False, False, True, output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
 				job3.append('write_refcalls.sh %s'%(job1.output))
 				job3.append('combine_vcf.sh %s %s %s %s %s %s %s'%(output+".snv.refcalls.vcf", False, True, True, output+"refcalls.vcf", output+".vqsr.snp.vcf", output+".vqsr.indel.vcf"))
@@ -405,11 +404,11 @@ def merge_annotate(siJobs, svJobs, variants):
                 	job4.sge_options="-l h_rt=120:00:00 -M %s -m ea -A %s"%(args.email, args.account)
 	       		job4.output=File(outdir.path, sample+".vcf")
 
-                        # Combine after VQSR per chrom
+                        # Combine after combined VQSR (all chromosomes together)
 			if args.reference_calls:
-     		        	job4.append('combine_vcf.sh %s %s %s %s %s %s'%(File(outdir.path, sample+".vcf"), False, False, False, File(outdir.path, sample+".vqsr.snp.vcf"), File(outdir.path, sample+".vqsr.indel.vcf")))
+     		        	job4.append('combine_vcf.sh %s %s %s %s %s %s'%(File(outdir.path, sample+".vcf"), False, False, True, File(outdir.path, sample+".vqsr.snp.vcf"), File(outdir.path, sample+".vqsr.indel.vcf")))
                                 job4.append('write_refcalls.sh %s'%(job1.output))
-                                job4.append('combine_vcf.sh %s %s %s %s %s %s %s'%(File(outdir.path, sample+".snv.refcalls.vcf"), False, True, False, File(outdir.path, sample+".refcalls.vcf"), File(outdir.path, sample+".vqsr.snp.vcf"), File(outdir.path, sample+".vqsr.indel.vcf")))
+                                job4.append('combine_vcf.sh %s %s %s %s %s %s %s'%(File(outdir.path, sample+".snv.refcalls.vcf"), False, True, True, File(outdir.path, sample+".refcalls.vcf"), File(outdir.path, sample+".vqsr.snp.vcf"), File(outdir.path, sample+".vqsr.indel.vcf")))
        	        	else:	
      		        	job4.append('combine_vcf.sh %s %s %s %s %s %s'%(File(outdir.path, sample+".vcf"), False, False, False, File(outdir.path, sample+".vqsr.snp.vcf"), File(outdir.path, sample+".vqsr.indel.vcf")))
 
