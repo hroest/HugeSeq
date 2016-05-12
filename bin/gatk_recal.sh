@@ -14,6 +14,8 @@ capture=$1
 shift
 echo $capture
 
+echo "got capture file:" $capture
+
 CAPTURE=""
 if [[ "$capture" != "False" ]]
 then
@@ -21,11 +23,9 @@ then
 	captures=$(echo $capture | tr "[" "\n")
 	captures=$(echo $captures | tr "]" "\n")
 	captures=$(echo $captures | tr "," "\n")
-	#echo "here" $captures
 	
 	for capt in $captures
 	do
-		echo "HELLO CAPTURE" $capt
 		if [[ "$CAPTURE" != "" ]]
 		then 
 			CAPTURE="$CAPTURE -L $capt"
@@ -33,6 +33,8 @@ then
 			CAPTURE="-L $capt"
 		fi
 	done
+else
+        echo "No capture file, leave it empty"
 fi
 
 
