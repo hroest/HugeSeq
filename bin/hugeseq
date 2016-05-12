@@ -202,11 +202,11 @@ def cleanup(pjobs, ext):
                 if (ext!=".recal.bam"):
 			job1=__cleanup('picard_nodup-%s'%bam.prefix, 'picard_nodup.sh', bam, bam.chext("nodup.bam"), False)
                 	job2=__cleanup('gatk_realn-%s'%bam.prefix, 'gatk_realn.sh', job1.output, bam.chext("realn.bam"), args.relax_realignment)
-                	job3=__cleanup('gatk_recal-%s'%bam.prefix, os.path.join(home,'bin','gatk_recal.sh'), job2.output, bam.chext("recal.bam"), False, capture)
+                	job3=__cleanup('gatk_recal-%s'%bam.prefix, 'gatk_recal.sh', job2.output, bam.chext("recal.bam"), False, capture)
 		else:
                 	job1=__cleanup('picard_nodup-%s'%bam.prefix, 'picard_nodup.sh', bam, bam, False)
 			job2=__cleanup('gatk_realn-%s'%bam.prefix, 'gatk_realn.sh', job1.output, bam, args.relax_realignment)
-                	job3=__cleanup('gatk_recal-%s'%bam.prefix, os.path.join(home,'bin','gatk_recal.sh'), job2.output, bam, False, capture)
+                	job3=__cleanup('gatk_recal-%s'%bam.prefix, 'gatk_recal.sh', job2.output, bam, False, capture)
                 job1.depend(pjob)
                 job2.depend(job1)
                 job3.depend(job2)
