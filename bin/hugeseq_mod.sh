@@ -2,7 +2,7 @@
 
 module load hugeseq/2.0
 # make Hugeseq work even when not in default location (sjm strips environmental vars)
-export PATH=/home/hroest/hroest/analyze/Feb2016_hugeseq/src/HugeSeq/bin/:$PATH
+export PATH=/srv/gsfs0/projects/snyder/hroest/HugeSeq/bin/:$PATH
 # bring down the memory usage, leads to fewer killed jobs
 export MALLOC_ARENA_MAX=2
 export TMP=$1
