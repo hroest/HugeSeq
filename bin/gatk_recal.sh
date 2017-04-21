@@ -49,8 +49,8 @@ command="java -Xms5g -Xmx5g -jar $GATK/GenomeAnalysisTK.jar \
    	-knownSites $MILLS_1K_GOLD_INDELS \
    	-knownSites $GOLD_1K_INDELS \
    	-knownSites $DBSNP \
-        $CAPTURE \
-        -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
+        $CAPTURE"
+# -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
 
 #	-cov ReadGroupCovariate \
 #	-cov QualityScoreCovariate \
@@ -73,8 +73,9 @@ command="java -Xms5g -Xmx5g -jar $GATK/GenomeAnalysisTK.jar \
    	-knownSites $GOLD_1K_INDELS \
    	-knownSites $DBSNP \
         $CAPTURE \
-	-BQSR ${o/.bam/.grp} \
-        -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
+	-BQSR ${o/.bam/.grp} "
+
+#-K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
 
 #	-cov ReadGroupCovariate \
 #	-cov QualityScoreCovariate \
@@ -103,8 +104,8 @@ command="java -Xms5g -Xmx5g -jar $GATK/GenomeAnalysisTK.jar \
 	-I $f \
 	-o $o \
 	-T PrintReads \
-	-BQSR ${o/.bam/.grp} \
-	-K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
+	-BQSR ${o/.bam/.grp} "
+#	-K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
 
 echo ">>> Printing reads"	
 echo ">>> Printing reads" >> $LOGFILE	

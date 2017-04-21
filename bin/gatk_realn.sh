@@ -33,9 +33,10 @@ command="java -Xms8g -Xmx8g -jar $GATK/GenomeAnalysisTK.jar \
 	-R $REF \
 	-o ${o/.bam/.intervals} $optL \
         -known $MILLS_1K_GOLD_INDELS \
-	-known $GOLD_1K_INDELS \
-	-et NO_ET \
-        -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
+	-known $GOLD_1K_INDELS"
+
+# -et NO_ET \
+#     -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
  
 echo ">>> Determining (small) suspicious intervals which are likely in need of realignment"
 echo ">>> Determining (small) suspicious intervals which are likely in need of realignment" >> $LOGFILE
@@ -51,8 +52,10 @@ command="java -Xms8g -Xmx8g -Djava.io.tmpdir=$TMP -jar $GATK/GenomeAnalysisTK.ja
 	-targetIntervals ${o/.bam/.intervals} \
         -known $MILLS_1K_GOLD_INDELS \
         -known $GOLD_1K_INDELS \
-	-et NO_ET $RELAX\
-	-K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
+    $RELAX"
+
+# -et NO_ET $RELAX\
+# -K /srv/gs1/software/gatk/GATKkey/stanford.edu.key"
  
 echo ">>> Running the realigner over the targeted intervals"
 echo ">>> Running the realigner over the targeted intervals" >> $LOGFILE
