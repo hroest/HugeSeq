@@ -10,6 +10,9 @@ from os.path import isfile, join, splitext
 try:
         home=os.environ['HUGESEQ_HOME']
         refi=os.environ['REF']+".fai"
+        if home.startswith("/srv/gsfs0/software/hugeseq"):
+            print ("You called a custom hugeseq script with HUGESEQ_HOME set to '%s', is this what you wanted to do?" % home)
+            sys.exit()
 except KeyError:
         print >> sys.stderr, "Error in initializing HugeSeq. Module HugeSeq probably is not loaded."
         exit(1)
